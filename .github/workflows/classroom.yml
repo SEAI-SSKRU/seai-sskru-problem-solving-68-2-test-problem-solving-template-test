@@ -1,0 +1,26 @@
+name: GitHub Classroom Workflow
+
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Autograding
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Compile C++ Code
+      run: |
+        g++ -std=c++17 solution.cpp tests.cpp -o test
+        
+    - name: Run Tests
+      run: |
+        ./test
+        
+    - name: Autograding
+      uses: education/autograding@v1
